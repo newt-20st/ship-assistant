@@ -33,16 +33,18 @@ export default {
     };
   },
   created: function () {
-    const user = firebase.auth().currentUser;
-    if (user) {
-      this.status = true;
-      this.username = user.displayName;
-      this.mailaddress = user.email;
-      this.creationTime = user.metadata.creationTime;
-      this.lastLoginTime = user.metadata.lastSignInTime;
-    } else {
-      this.status = false;
-    }
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log(user);
+        this.status = true;
+        this.userData.username = user.displayName;
+        this.userData.mailaddress = user.email;
+        this.userData.creationTime = user.metadata.creationTime;
+        this.userData.lastLoginTime = user.metadata.lastSignInTime;
+      } else {
+        this.status = false;
+      }
+    });
   },
   methods: {
     googleSignIn: function () {
@@ -66,6 +68,9 @@ export default {
                 this.userData.creationTime = user.metadata.creationTime;
                 this.userData.lastLoginTime = user.metadata.lastSignInTime;
                 this.message = "ログインに成功しました。";
+                if (this.$route.query.type == "postId") {
+                  route.push("/post/" + this.$route.query.redirect);
+                }
               } else {
                 user
                   .delete()

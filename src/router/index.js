@@ -59,7 +59,8 @@ router.beforeEach((to, from, next) => {
         next();
       } else {
         // 認証されていない場合
-        next({ path: 'user?from=top' });
+        console.log(to)
+        next({ path: '/user?type=' + to.name + '&redirect=' + String(to.params.id) });
       }
     })
   } else {
