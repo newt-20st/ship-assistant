@@ -8,6 +8,14 @@
         <td>{{ row.value }}</td>
       </tr>
     </table>
+    <div v-show="files.length != 0">
+      <h3>ファイル</h3>
+      <ul>
+        <li v-for="file in files" v-bind:key="file">
+          <a v-bind:href="file" target="_blank">{{ file }}</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -46,6 +54,7 @@ export default {
           value: "",
         },
       ],
+      files: [],
       title: "title",
     };
   },
@@ -61,6 +70,10 @@ export default {
           this.title = getData.title;
           for (let i = 0; i < this.rows.length; i++) {
             this.rows[i].value = getData[this.rows[i].key];
+          }
+          if (getData.channel == "highCon") {
+            this.files = getData.link;
+            console.log(getData.link);
           }
         });
       })
