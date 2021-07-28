@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="header">
-      <h1>SHIP Assistant</h1>
+      <h1>SHIP Assistant [beta]</h1>
     </div>
     <router-view />
   </div>

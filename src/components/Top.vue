@@ -5,12 +5,16 @@
     <a href="/post">here</a>
     <h3>user data</h3>
     <a href="/user">here</a>
+    <h3>getlog</h3>
+    <a href="/getlog">here</a>
+    <h3>search</h3>
+    <a href="/search">here</a>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: "Top",
   data() {
     return {};
   },

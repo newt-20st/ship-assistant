@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Top from '@/components/Top'
 import User from '@/components/User'
+import GetLog from '@/components/GetLog'
+import GetLogId from '@/components/GetLogId'
+import Search from '@/components/Search'
 import PostAll from '@/components/PostAll'
 import PostId from '@/components/PostId'
 import firebase from 'firebase'
@@ -12,8 +15,8 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Top',
+      component: Top
     }, {
       path: '/user',
       name: 'user',
@@ -22,6 +25,21 @@ const router = new Router({
       path: '/post/',
       name: 'PostAll',
       component: PostAll,
+      meta: { requiresAuth: true },
+    }, {
+      path: '/getlog/',
+      name: 'GetLog',
+      component: GetLog,
+      meta: { requiresAuth: true },
+    }, {
+      path: '/getlog/:id',
+      name: 'GetLogId',
+      component: GetLogId,
+      meta: { requiresAuth: true },
+    }, {
+      path: '/search/',
+      name: 'Search',
+      component: Search,
       meta: { requiresAuth: true },
     }, {
       path: '/post/:id',

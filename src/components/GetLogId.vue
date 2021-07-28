@@ -1,12 +1,13 @@
 <template>
   <div class="hello">
     <a href="/">Back to top</a>
-    <h2>Recent Post</h2>
-    <ul>
-      <li v-for="each in list" v-bind:key="each.id">
-        <a v-bind:href="'/post/' + each.id"> {{ each.title }} </a>
-      </li>
-    </ul>
+    <h2>{{ String(timestamp) }}</h2>
+    <p>{{ String(highCon) }}</p>
+    <p>{{ String(highStudy) }}</p>
+    <p>{{ String(highSchoolNews) }}</p>
+    <p>{{ String(juniorCon) }}</p>
+    <p>{{ String(juniorStudy) }}</p>
+    <p>{{ String(juniorSchoolNews) }}</p>
   </div>
 </template>
 
@@ -15,26 +16,31 @@ import firebase from "firebase";
 import "firebase/firestore";
 
 export default {
-  name: "PostAll",
+  name: "GetLogId",
   data() {
     return {
-      list: [],
+      id: this.$route.params.id,
+      timestamp: "timestamp",
+      highCon: [],
+      highStudy: [],
+      highSchoolNews: [],
+      juniorCon: [],
+      juniorStudy: [],
+      juniorSchoolNews: [],
     };
   },
   created: function () {
     const db = firebase.firestore();
-    db.collection("shipPost")
-      .orderBy("timestamp", "desc")
-      .limit(10)
+    db.collection("getLog")
+      .document(String(id))
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           console.log(doc.id, " => ", doc.data());
           const getData = doc.data();
-          this.list.push({
-            id: getData.id,
-            title: getData.title + " (" + getData.channel + ")",
-          });
+          for (eachProp in getData) {
+            this[eachProp] = getData[eachProp];
+          }
         });
       })
       .catch((error) => {

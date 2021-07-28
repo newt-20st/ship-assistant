@@ -1,10 +1,10 @@
 <template>
   <div class="hello">
     <a href="/">Back to top</a>
-    <h2>Recent Post</h2>
+    <h2>GetLog list</h2>
     <ul>
       <li v-for="each in list" v-bind:key="each.id">
-        <a v-bind:href="'/post/' + each.id"> {{ each.title }} </a>
+        <a v-bind:href="'/getlog/' + each.id"> {{ each.timestamp }} </a>
       </li>
     </ul>
   </div>
@@ -15,7 +15,7 @@ import firebase from "firebase";
 import "firebase/firestore";
 
 export default {
-  name: "PostAll",
+  name: "GetLog",
   data() {
     return {
       list: [],
@@ -23,7 +23,7 @@ export default {
   },
   created: function () {
     const db = firebase.firestore();
-    db.collection("shipPost")
+    db.collection("getLog")
       .orderBy("timestamp", "desc")
       .limit(10)
       .get()
@@ -32,8 +32,8 @@ export default {
           console.log(doc.id, " => ", doc.data());
           const getData = doc.data();
           this.list.push({
-            id: getData.id,
-            title: getData.title + " (" + getData.channel + ")",
+            id: doc.id,
+            timestamp: getData.timestamp,
           });
         });
       })
