@@ -1,13 +1,31 @@
 <template>
   <div class="hello">
     <a href="/">Back to top</a>
-    <h2>{{ String(timestamp) }}</h2>
-    <p>{{ String(highCon) }}</p>
-    <p>{{ String(highStudy) }}</p>
-    <p>{{ String(highSchoolNews) }}</p>
-    <p>{{ String(juniorCon) }}</p>
-    <p>{{ String(juniorStudy) }}</p>
-    <p>{{ String(juniorSchoolNews) }}</p>
+    <h2>getLog: {{ this.timestamp.toDate() }}</h2>
+    <div v-show="this.highCon.length != 0">
+      <h3>高校連絡事項</h3>
+      <ul>
+        <li v-for="each in this.highCon" v-bind:key="each">
+          <a v-bind:href="'/post/' + each.id">{{ each.title }}</a>
+        </li>
+      </ul>
+    </div>
+    <div v-show="this.highStudy.length != 0">
+      <h3>高校学習教材</h3>
+      <ul>
+        <li v-for="each in this.highStudy" v-bind:key="each">
+          <a v-bind:href="'/post/' + each.id">{{ each.title }}</a>
+        </li>
+      </ul>
+    </div>
+    <div v-show="this.highSchoolNews.length != 0">
+      <h3>高校学校通信</h3>
+      <ul>
+        <li v-for="each in this.highSchoolNews" v-bind:key="each">
+          <a v-bind:href="'/post/' + each.id">{{ each.title }}</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -24,27 +42,28 @@ export default {
       highCon: [],
       highStudy: [],
       highSchoolNews: [],
-      juniorCon: [],
-      juniorStudy: [],
-      juniorSchoolNews: [],
     };
   },
   created: function () {
     const db = firebase.firestore();
-    db.collection("getLog")
-      .document(String(id))
+    const docRef = db.collection("getLog").doc(this.$route.params.id);
+    docRef
       .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          console.log(doc.id, " => ", doc.data());
+      .then((doc) => {
+        if (doc.exists) {
           const getData = doc.data();
-          for (eachProp in getData) {
-            this[eachProp] = getData[eachProp];
-          }
-        });
+          this.timestamp = getData.timestamp;
+          this.highCon = getData.highCon;
+          this.highStudy = getData.highStudy;
+          this.highSchoolNews = getData.highSchoolNews;
+          console.log("Document data:", doc.data());
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
       })
       .catch((error) => {
-        this.title = "Error getting documents: " + String(error);
+        console.log("Error getting document:", error);
       });
   },
 };

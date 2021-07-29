@@ -8,6 +8,7 @@
     </div>
     <div v-show="this.status === true" id="loggedIn">
       <h2>{{ this.userData.username }}</h2>
+      <img :src="this.userData.photoURL" />
       <p>メールアドレス: {{ this.userData.mailaddress }}</p>
       <p>アカウント作成日時: {{ this.userData.creationTime }}</p>
       <p>最終ログイン: {{ this.userData.lastLoginTime }}</p>
@@ -29,18 +30,19 @@ export default {
         mailaddress: "",
         creationTime: "",
         lastLoginTime: "",
+        photoURL: "",
       },
     };
   },
   created: function () {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log(user);
         this.status = true;
         this.userData.username = user.displayName;
         this.userData.mailaddress = user.email;
         this.userData.creationTime = user.metadata.creationTime;
         this.userData.lastLoginTime = user.metadata.lastSignInTime;
+        this.userData.photoURL = user.photoURL;
       } else {
         this.status = false;
       }
@@ -68,9 +70,6 @@ export default {
                 this.userData.creationTime = user.metadata.creationTime;
                 this.userData.lastLoginTime = user.metadata.lastSignInTime;
                 this.message = "ログインに成功しました。";
-                if (this.$route.query.type == "postId") {
-                  route.push("/post/" + this.$route.query.redirect);
-                }
               } else {
                 user
                   .delete()
@@ -80,6 +79,19 @@ export default {
                   .catch((error) => {
                     console.log(error);
                   });
+              }
+            })
+            .then(() => {
+              if (this.status == true) {
+                if (this.$route.query.type == "PostAll") {
+                  this.$router.push("/post/");
+                } else if (this.$route.query.type == "GetLogAll") {
+                  this.$router.push("/getlog/");
+                } else if (this.$route.query.type == "PostId") {
+                  this.$router.push("/post/" + this.$route.query.redirect);
+                } else if (this.$route.query.type == "GetLogId") {
+                  this.$router.push("/getlog/" + this.$route.query.redirect);
+                }
               }
             })
             .catch((error) => {

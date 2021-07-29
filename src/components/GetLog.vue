@@ -4,7 +4,9 @@
     <h2>GetLog list</h2>
     <ul>
       <li v-for="each in list" v-bind:key="each.id">
-        <a v-bind:href="'/getlog/' + each.id"> {{ each.timestamp }} </a>
+        <a v-bind:href="'/getlog/' + each.id">
+          {{ each.timestamp.toDate() }}
+        </a>
       </li>
     </ul>
   </div>
