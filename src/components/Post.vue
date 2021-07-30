@@ -34,7 +34,7 @@ export default {
           console.log(doc.id, " => ", doc.data());
           const getData = doc.data();
           this.list.push({
-            id: getData.id,
+            id: getData.id[0],
             title: getData.title + " (" + getData.channel + ")",
           });
         });

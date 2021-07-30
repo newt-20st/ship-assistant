@@ -4,7 +4,7 @@
       <h1>SHIP Assistant [beta]</h1>
     </div>
     <p id="caution">
-      [caution!] This is beta version. You'll catch some bugs. I Welcome your
+      [caution!] This is beta version. You'll catch some bugs. I welcome your
       unkown issue's report
     </p>
     <transition mode="out-in">

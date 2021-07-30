@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a href="/">Back to top</a>
+    <router-link to="/">Back to top</router-link>
     <p>{{ this.message }}</p>
     <div v-show="this.status === false" id="notLoggedIn">
       <p>ログインしてください。</p>
@@ -8,10 +8,13 @@
     </div>
     <div v-show="this.status === true" id="loggedIn">
       <h2>{{ this.userData.username }}</h2>
-      <img :src="this.userData.photoURL" />
-      <p>メールアドレス: {{ this.userData.mailaddress }}</p>
-      <p>アカウント作成日時: {{ this.userData.creationTime }}</p>
-      <p>最終ログイン: {{ this.userData.lastLoginTime }}</p>
+      <img id="userIcon" :src="this.userData.photoURL" />
+      <table>
+        <tr v-for="(value, key) in this.userData" v-bind:key="key">
+          <th>{{ key }}</th>
+          <td>{{ value }}</td>
+        </tr>
+      </table>
       <button @click="googleSignOut">Sign Out</button>
     </div>
   </div>
@@ -37,6 +40,7 @@ export default {
   created: function () {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        console.log(user);
         this.status = true;
         this.userData.username = user.displayName;
         this.userData.mailaddress = user.email;
@@ -47,6 +51,13 @@ export default {
         this.status = false;
       }
     });
+  },
+  head: {
+    title() {
+      return {
+        inner: "ユーザー情報",
+      };
+    },
   },
   methods: {
     googleSignIn: function () {
@@ -82,23 +93,16 @@ export default {
               }
             })
             .then(() => {
-              if (this.status == true) {
-                if (this.$route.query.redirect.split(",")[0] == "Post") {
+              if (this.status && this.$route.query.redirect) {
+                const redirect = this.$route.query.redirect.split(",");
+                if (redirect[0] == "Post") {
                   this.$router.push("/post/");
-                } else if (
-                  this.$route.query.redirect.split(",")[0] == "PostId"
-                ) {
-                  this.$router.push(
-                    "/post/" + this.$route.query.redirect.split(",")[1]
-                  );
-                } else if (this.$route.query.redirect.split(",")[0] == "Log") {
+                } else if (redirect[0] == "PostId") {
+                  this.$router.push("/post/" + redirect[1]);
+                } else if (redirect[0] == "Log") {
                   this.$router.push("/log/");
-                } else if (
-                  this.$route.query.redirect.split(",")[0] == "LogId"
-                ) {
-                  this.$router.push(
-                    "/log/" + this.$route.query.redirect.split(",")[1]
-                  );
+                } else if (redirect[0] == "LogId") {
+                  this.$router.push("/log/" + redirect[1]);
                 }
               }
             })
@@ -124,3 +128,18 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+#userIcon {
+  border-radius: 50%;
+}
+th,
+td {
+  padding: 0.5rem;
+}
+th {
+  text-align: right;
+  border-right: 0.2rem solid var(--base-color);
+  min-width: 7rem;
+}
+</style>

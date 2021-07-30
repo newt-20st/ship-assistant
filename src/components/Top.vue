@@ -8,9 +8,9 @@
     <router-link to="/log">here</router-link>
     <h2>More info</h2>
     <a
-      href="https://newt-house.notion.site/SHIP-Assistant-Project-Note-c599cf2125364a80920b0447f76d717a"
+      href="https://www.notion.so/newt-house/SHIP-Assistant-s-Note-c599cf2125364a80920b0447f76d717a"
       target="_blank"
-      >Introduce functions, known bugs, fixes, later release schedule, and more
+      >Introduce functions, known bugs, later release schedule, and more
     </a>
     <h2>twitter</h2>
     <a href="https://twitter.com/ShipNotify" target="_blank">here</a>
@@ -19,9 +19,9 @@
 
 <script>
 export default {
-  name: "top",
+  name: "Top",
   data() {
-    return;
+    return {};
   },
 };
 </script>
