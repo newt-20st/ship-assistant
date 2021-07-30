@@ -12,7 +12,7 @@
       target="_blank"
       >Introduce functions, known bugs, later release schedule, and more
     </a>
-    <h2>twitter</h2>
+    <h2>Twitter</h2>
     <a href="https://twitter.com/ShipNotify" target="_blank">here</a>
   </div>
 </template>
