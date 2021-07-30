@@ -52,7 +52,7 @@ router.beforeEach((to, from, next) => {
         next();
       } else {
         console.log(to)
-        if (to.name == "PostId" || to.name == "Log") {
+        if (to.name == "PostId" || to.name == "LogId") {
           next({ path: '/user?redirect=' + to.name + ',' + String(to.params.id) });
         } else {
           next({ path: '/user?redirect=' + to.name });
