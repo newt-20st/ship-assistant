@@ -11,8 +11,6 @@
     <a href="/user">here</a>
     <h3>getlog</h3>
     <a href="/getlog">here</a>
-    <h3>search</h3>
-    <a href="/search">here</a>
     <h3>more info</h3>
     <a
       href="https://newt-house.notion.site/SHIP-Assistant-Project-Note-c599cf2125364a80920b0447f76d717a"
@@ -26,7 +24,7 @@
 
 <script>
 export default {
-  name: "Top",
+  name: "top",
   data() {
     return {};
   },

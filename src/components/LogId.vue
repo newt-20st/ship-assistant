@@ -34,7 +34,7 @@ import firebase from "firebase";
 import "firebase/firestore";
 
 export default {
-  name: "GetLogId",
+  name: "logId",
   data() {
     return {
       id: this.$route.params.id,

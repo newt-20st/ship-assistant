@@ -24,7 +24,7 @@ import firebase from "firebase";
 import "firebase/firestore";
 
 export default {
-  name: "PostId",
+  name: "post-id",
   data() {
     return {
       id: this.$route.params.id,

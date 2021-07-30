@@ -15,7 +15,7 @@ import firebase from "firebase";
 import "firebase/firestore";
 
 export default {
-  name: "PostAll",
+  name: "Post",
   data() {
     return {
       list: [],

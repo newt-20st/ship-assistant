@@ -3,10 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import firebase from 'firebase'
+import VueGtag from "vue-gtag";
 
 Vue.config.productionTip = false
 
-import firebase from 'firebase'
 var firebaseConfig = {
   apiKey: "AIzaSyDdqdUQnlsXifihcCbDrQmYa8-u2wkZiOE",
   authDomain: "ship-assistant.firebaseapp.com",
@@ -17,10 +18,13 @@ var firebaseConfig = {
   appId: "1:837214312091:web:a212417a98086e4b5a583e",
   measurementId: "G-5T7NM8EH07"
 };
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-/* eslint-disable no-new */
+
+Vue.use(VueGtag, {
+  config: { id: "UA-203559687-1" }
+});
+
 new Vue({
   el: '#app',
   router,
