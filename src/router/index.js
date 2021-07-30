@@ -55,7 +55,7 @@ router.beforeEach((to, from, next) => {
         if (to.name == "PostId" || to.name == "Log") {
           next({ path: '/user?redirect=' + to.name + ',' + String(to.params.id) });
         } else {
-          next({ path: '/user?type=' + to.name });
+          next({ path: '/user?redirect=' + to.name });
         }
       }
     })

@@ -21,7 +21,7 @@
 export default {
   name: "top",
   data() {
-    return {};
+    return;
   },
 };
 </script>
