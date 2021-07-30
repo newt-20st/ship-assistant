@@ -3,7 +3,13 @@
     <div id="header">
       <h1>SHIP Assistant [beta]</h1>
     </div>
-    <router-view />
+    <p id="caution">
+      [caution!] This is beta version. You'll catch some bugs. I Welcome your
+      unkown issue's report
+    </p>
+    <transition mode="out-in">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -13,15 +19,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-:root {
-  --base-color: #1e88e5;
-}
-#app {
-  margin: 0;
-  h1 {
-    color: var(--base-color);
-    border-bottom: 1px solid var(--base-color);
-  }
-}
-</style>
+<style lang="scss" src="./style.scss"></style>

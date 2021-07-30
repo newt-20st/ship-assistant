@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
-    <a href="/post">＜ Back Recent Post List</a>
-    <h2>{{ title }}</h2>
+    <router-link to="/post">back</router-link>
+    <h2>{{ rows[0].value }}</h2>
     <table>
       <tr v-for="row in rows" v-bind:key="row.id">
         <th>{{ row.key }}</th>
@@ -58,7 +58,15 @@ export default {
       title: "title",
     };
   },
+  head: {
+    title() {
+      return {
+        inner: this.title,
+      };
+    },
+  },
   created: function () {
+    const me = this;
     const db = firebase.firestore();
     db.collection("shipPost")
       .where("id", "==", Number(this.id))
@@ -72,10 +80,21 @@ export default {
             this.rows[i].value = getData[this.rows[i].key];
           }
           if (getData.channel == "highCon") {
-            this.files = getData.link;
-            console.log(getData.link);
+            const storage = firebase.storage();
+            for (var eachUrl of getData.link) {
+              storage
+                .refFromURL(eachUrl)
+                .getDownloadURL()
+                .then((url) => {
+                  me.files.push(url);
+                  console.log(url);
+                });
+            }
           }
         });
+      })
+      .then(() => {
+        this.$emit("updateHead");
       })
       .catch((error) => {
         this.title = "Error getting documents: " + String(error);
@@ -86,19 +105,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-h1,
-h2 {
-  font-weight: normal;
+th,
+td {
+  padding: 0.5rem;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+th {
+  text-align: right;
+  border-right: 0.2rem solid var(--base-color);
 }
 </style>

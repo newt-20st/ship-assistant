@@ -83,14 +83,22 @@ export default {
             })
             .then(() => {
               if (this.status == true) {
-                if (this.$route.query.type == "PostAll") {
+                if (this.$route.query.redirect.split(",")[0] == "Post") {
                   this.$router.push("/post/");
-                } else if (this.$route.query.type == "GetLogAll") {
-                  this.$router.push("/getlog/");
-                } else if (this.$route.query.type == "PostId") {
-                  this.$router.push("/post/" + this.$route.query.redirect);
-                } else if (this.$route.query.type == "GetLogId") {
-                  this.$router.push("/getlog/" + this.$route.query.redirect);
+                } else if (
+                  this.$route.query.redirect.split(",")[0] == "PostId"
+                ) {
+                  this.$router.push(
+                    "/post/" + this.$route.query.redirect.split(",")[1]
+                  );
+                } else if (this.$route.query.redirect.split(",")[0] == "Log") {
+                  this.$router.push("/log/");
+                } else if (
+                  this.$route.query.redirect.split(",")[0] == "LogId"
+                ) {
+                  this.$router.push(
+                    "/log/" + this.$route.query.redirect.split(",")[1]
+                  );
                 }
               }
             })

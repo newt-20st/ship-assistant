@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
-    <a href="/">Back to top</a>
-    <h2>getLog: {{ this.timestamp.toDate() }}</h2>
+    <router-link to="/log">back</router-link>
+    <h2>getLog: {{ this.timestamp }}</h2>
     <div v-show="this.highCon.length != 0">
       <h3>高校連絡事項</h3>
       <ul>
@@ -52,13 +52,12 @@ export default {
       .then((doc) => {
         if (doc.exists) {
           const getData = doc.data();
-          this.timestamp = getData.timestamp;
+          this.timestamp = getData.timestamp.toDate();
           this.highCon = getData.highCon;
           this.highStudy = getData.highStudy;
           this.highSchoolNews = getData.highSchoolNews;
           console.log("Document data:", doc.data());
         } else {
-          // doc.data() will be undefined in this case
           console.log("No such document!");
         }
       })
@@ -71,11 +70,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-h1,
-h2 {
-  font-weight: normal;
-}
-a {
-  color: #42b983;
-}
 </style>

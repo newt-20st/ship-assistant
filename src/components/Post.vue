@@ -1,10 +1,12 @@
 <template>
   <div class="hello">
-    <a href="/">Back to top</a>
+    <router-link to="/">back</router-link>
     <h2>Recent Post</h2>
     <ul>
       <li v-for="each in list" v-bind:key="each.id">
-        <a v-bind:href="'/post/' + each.id"> {{ each.title }} </a>
+        <router-link v-bind:to="'/post/' + each.id">{{
+          each.title
+        }}</router-link>
       </li>
     </ul>
   </div>
@@ -46,11 +48,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-h1,
-h2 {
-  font-weight: normal;
-}
-a {
-  color: #42b983;
-}
 </style>
