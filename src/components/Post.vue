@@ -23,6 +23,13 @@ export default {
       list: [],
     };
   },
+  head: {
+    title() {
+      return {
+        inner: "投稿一覧",
+      };
+    },
+  },
   created: function () {
     const db = firebase.firestore();
     db.collection("shipPost")

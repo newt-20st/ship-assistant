@@ -1,12 +1,14 @@
 <template>
   <div class="hello">
     <router-link to="/log">back</router-link>
-    <h2>getLog: {{ this.timestamp }}</h2>
+    <h2>{{ this.timestamp }} の取得</h2>
     <div v-show="this.highCon.length != 0">
       <h3>高校連絡事項</h3>
       <ul>
         <li v-for="each in this.highCon" v-bind:key="each">
-          <a v-bind:href="'/post/' + each.id[0]">{{ each.title }}</a>
+          <router-link v-bind:to="'/post/' + each.id[0]">{{
+            each.title
+          }}</router-link>
         </li>
       </ul>
     </div>
@@ -14,7 +16,9 @@
       <h3>高校学習教材</h3>
       <ul>
         <li v-for="each in this.highStudy" v-bind:key="each">
-          <a v-bind:href="'/post/' + each.id[0]">{{ each.title }}</a>
+          <router-link v-bind:to="'/post/' + each.id[0]">{{
+            each.title
+          }}</router-link>
         </li>
       </ul>
     </div>
@@ -22,7 +26,9 @@
       <h3>高校学校通信</h3>
       <ul>
         <li v-for="each in this.highSchoolNews" v-bind:key="each">
-          <a v-bind:href="'/post/' + each.id[0]">{{ each.title }}</a>
+          <router-link v-bind:to="'/post/' + each.id[0]">{{
+            each.title
+          }}</router-link>
         </li>
       </ul>
     </div>
@@ -38,11 +44,18 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-      timestamp: "timestamp",
+      timestamp: "",
       highCon: [],
       highStudy: [],
       highSchoolNews: [],
     };
+  },
+  head: {
+    title() {
+      return {
+        inner: this.timestamp + " の取得",
+      };
+    },
   },
   created: function () {
     const db = firebase.firestore();
@@ -60,6 +73,9 @@ export default {
         } else {
           console.log("No such document!");
         }
+      })
+      .then(() => {
+        this.$emit("updateHead");
       })
       .catch((error) => {
         console.log("Error getting document:", error);
