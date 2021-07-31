@@ -9,7 +9,13 @@
         >Notion</a
       >で確認してください。
     </p>
-    <p></p>
+    <h3>概要</h3>
+    <p>
+      SHIP ( https://ship.sakae-higashi.jp/ )
+      の情報を定期的に取得し、新しい投稿が確認されたら各SNSなどを通じて更新を通知するサービスです。
+    </p>
+    <h3>システム構成図</h3>
+    <img src="@/assets/ship-assistant-system-map.jpg" />
   </div>
 </template>
 
@@ -35,5 +41,8 @@ export default {
   display: block;
   max-width: 10rem;
   margin: 0 auto;
+}
+img {
+  max-width: 100%;
 }
 </style>
