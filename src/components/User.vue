@@ -22,6 +22,7 @@
 
 <script>
 import firebase from "firebase";
+const functions = firebase.functions();
 export default {
   name: "User",
   data() {
@@ -74,7 +75,10 @@ export default {
             .signInWithPopup(provider)
             .then((result) => {
               const user = result.user;
-              if (user.email.indexOf("@ship.sakaehigashi.ed.jp") != -1) {
+              if (
+                user.email.indexOf("@ship.sakaehigashi.ed.jp") != -1 ||
+                user.email == functions.getAdminAdress()
+              ) {
                 this.status = true;
                 this.userData.username = user.displayName;
                 this.userData.mailaddress = user.email;
@@ -85,7 +89,8 @@ export default {
                 user
                   .delete()
                   .then(() => {
-                    this.message = "これは栄東のアカウントではありません。";
+                    this.message =
+                      "これは栄東のアカウントではありません。 @ship.sakaehigashi.ed.jp で終わるGoogleアカウントでログインしてください。";
                   })
                   .catch((error) => {
                     console.log(error);
