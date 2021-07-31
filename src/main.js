@@ -20,7 +20,7 @@ firebase.initializeApp(firebaseConfig);
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
 
 Vue.use(VueGtag, {
-  config: { id: "UA-203559687-1" }
+  config: { id: "G-GBC6NMWRPC" }
 });
 
 new Vue({

@@ -23,7 +23,7 @@ const router = new Router({
       meta: { requiresAuth: true },
     }, {
       path: '/post/:id',
-      name: 'postId',
+      name: 'PostId',
       component: loadView('PostId'),
       meta: { requiresAuth: true },
     }, {

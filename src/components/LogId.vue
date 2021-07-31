@@ -6,7 +6,7 @@
       <h3>高校連絡事項</h3>
       <ul>
         <li v-for="each in this.highCon" v-bind:key="each">
-          <a v-bind:href="'/post/' + each.id">{{ each.title }}</a>
+          <a v-bind:href="'/post/' + each.id[0]">{{ each.title }}</a>
         </li>
       </ul>
     </div>
@@ -14,7 +14,7 @@
       <h3>高校学習教材</h3>
       <ul>
         <li v-for="each in this.highStudy" v-bind:key="each">
-          <a v-bind:href="'/post/' + each.id">{{ each.title }}</a>
+          <a v-bind:href="'/post/' + each.id[0]">{{ each.title }}</a>
         </li>
       </ul>
     </div>
@@ -22,7 +22,7 @@
       <h3>高校学校通信</h3>
       <ul>
         <li v-for="each in this.highSchoolNews" v-bind:key="each">
-          <a v-bind:href="'/post/' + each.id">{{ each.title }}</a>
+          <a v-bind:href="'/post/' + each.id[0]">{{ each.title }}</a>
         </li>
       </ul>
     </div>
