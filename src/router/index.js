@@ -37,6 +37,15 @@ const router = new Router({
       component: loadView('LogId'),
       meta: { requiresAuth: true },
     }
+    , {
+      path: '/about/',
+      name: 'About',
+      component: loadView('About'),
+    }, {
+      path: '/about/terms',
+      name: 'Terms',
+      component: loadView('Terms'),
+    }
   ]
 })
 
