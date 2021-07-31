@@ -2,10 +2,6 @@
   "hosting": {
     "rewrites": [
       {
-        "source": "/api/get-admin-adress",
-        "function": "getAdminAdress"
-      },
-      {
         "source": "**",
         "destination": "/index.html"
       }

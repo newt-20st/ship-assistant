@@ -22,7 +22,6 @@
 
 <script>
 import firebase from "firebase";
-const functions = firebase.functions();
 export default {
   name: "User",
   data() {
@@ -77,7 +76,7 @@ export default {
               const user = result.user;
               if (
                 user.email.indexOf("@ship.sakaehigashi.ed.jp") != -1 ||
-                user.email == functions.getAdminAdress()
+                user.email == "ship.assistant.official@gmail.com"
               ) {
                 this.status = true;
                 this.userData.username = user.displayName;
