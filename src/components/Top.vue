@@ -8,13 +8,11 @@
     <router-link to="/log">こちら</router-link>
     <h2>このアプリについて</h2>
     <ul>
-      <li><router-link to="/about/">詳細</router-link></li>
-      <li><router-link to="/about/terms">利用規約</router-link></li>
       <li>
         <a
           href="https://www.notion.so/newt-house/SHIP-Assistant-s-Note-c599cf2125364a80920b0447f76d717a"
           target="_blank"
-          >最新情報( Notion, 外部サイトが開きます)
+          >詳細( Notion, 外部サイトが開きます)
         </a>
       </li>
     </ul>
