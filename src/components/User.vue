@@ -126,6 +126,10 @@ export default {
               }
             })
             .catch((error) => {
+              this.$gtag.event("login", {
+                event_category: "engagement",
+                event_label: "resign",
+              });
               console.log(error);
             });
         })
@@ -139,9 +143,17 @@ export default {
         .signOut()
         .then(() => {
           this.status = false;
+          this.$gtag.event("logout", {
+            event_category: "engagement",
+            event_label: "success",
+          });
         })
         .catch((error) => {
           console.log(error);
+          this.$gtag.event("logout", {
+            event_category: "engagement",
+            event_label: "error",
+          });
         });
     },
   },
