@@ -23,10 +23,11 @@ export default {
   background-color: var(--base-color);
   border-radius: 0 0 3rem 3rem;
   height: 3rem;
-  max-width: 500px;
+  width: clamp(200px, 98vw, 750px);
   margin: 0 auto;
   text-align: center;
   h1 {
+    font-size: clamp(3vh, 1.5rem, 8vw);
     margin: 0;
     color: var(--back-color);
   }

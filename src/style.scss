@@ -32,6 +32,14 @@ h2 {
   border-radius: 0 0 0 1rem;
   margin: 1rem 0;
 }
+h3 {
+  display: table;
+  background-color: var(--base-color);
+  color: var(--back-color);
+  padding: .5rem 1.5rem;
+  border-radius: 2rem;
+
+}
 a {
   color: var(--link-color);
   text-decoration: none;
@@ -54,4 +62,27 @@ a {
   padding: 0.5rem;
   background-color: var(--sub-color);
   color: var(--back-color);
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0 .5rem;
+}
+th,
+td {
+  padding: .5rem;
+  margin: 0.5rem;
+}
+th {
+  text-align: right;
+  color: var(--base-color);
+  border-radius: 0 2rem 2rem 0;
+  border: 1px solid var(--base-color);
+  border-left: transparent;
+  white-space: nowrap;
+}
+ul {
+  li {
+    margin: 1rem 0;
+  }
 }

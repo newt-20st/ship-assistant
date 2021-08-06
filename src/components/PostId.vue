@@ -8,11 +8,11 @@
         <td>{{ row.value }}</td>
       </tr>
     </table>
-    <div v-show="files.length != 0">
-      <h3>ファイル</h3>
+    <div v-show="file.name.length != 0">
+      <h3>Files</h3>
       <ul>
-        <li v-for="file in files" v-bind:key="file">
-          <a v-bind:href="file" target="_blank">{{ file }}</a>
+        <li v-for="(name, i) in file.name" :key="name">
+          <a :href="file.link[i]" target="_blank">{{ name }}</a>
         </li>
       </ul>
     </div>
@@ -54,7 +54,10 @@ export default {
           value: "",
         },
       ],
-      files: [],
+      file: {
+        name: [],
+        link: [],
+      },
       title: "title",
     };
   },
@@ -79,14 +82,24 @@ export default {
           for (let i = 0; i < this.rows.length; i++) {
             this.rows[i].value = getData[this.rows[i].key];
           }
-          if (getData.channel == "highCon") {
+          if (getData.channel == "highCon" || getData.channel == "highStudy") {
             const storage = firebase.storage();
-            for (var eachUrl of getData.link) {
+            console.log(getData.link.length);
+            for (let i = 0; i < getData.link.length; i++) {
               storage
-                .refFromURL(eachUrl)
+                .refFromURL(getData.link[i])
+                .getMetadata()
+                .then(function (metadata) {
+                  me.file.name.push({});
+                  me.file.name[i] = metadata.name;
+                  console.log(metadata.name);
+                });
+              storage
+                .refFromURL(getData.link[i])
                 .getDownloadURL()
-                .then((url) => {
-                  me.files.push(url);
+                .then(function (url) {
+                  me.file.link.push({});
+                  me.file.link[i] = url;
                   console.log(url);
                 });
             }
@@ -105,17 +118,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-th,
-td {
-  padding: 0.5rem;
-}
-th {
-  text-align: right;
-  border-right: 0.2rem solid var(--base-color);
-}
-ul {
-  li {
-    margin: 1rem 0;
-  }
-}
 </style>
