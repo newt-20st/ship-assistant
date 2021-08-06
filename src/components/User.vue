@@ -173,17 +173,4 @@ th {
   border-right: 0.2rem solid var(--base-color);
   min-width: 7rem;
 }
-button {
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--base-color);
-  background-color: var(--back-color);
-  color: var(--base-color);
-  box-shadow: 5px 5px 10px -5px rgba(0, 0, 0, 0.6);
-  transition: all ease-in 0.3s;
-  cursor: pointer;
-  :active {
-    background-color: var(--base-color);
-    color: var(--back-color);
-  }
-}
 </style>

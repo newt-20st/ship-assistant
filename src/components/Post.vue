@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <router-link to="/">back</router-link>
+    <router-link to="/" class="backBtn">back</router-link>
     <h2>Recent Post</h2>
     <ul>
       <li v-for="each in list" v-bind:key="each.id">
@@ -55,4 +55,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+ul {
+  li {
+    margin: 1rem 0;
+  }
+}
 </style>

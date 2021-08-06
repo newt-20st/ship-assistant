@@ -86,4 +86,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+ul {
+  li {
+    margin: 1rem 0;
+  }
+}
 </style>

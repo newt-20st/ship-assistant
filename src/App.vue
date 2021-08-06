@@ -3,9 +3,11 @@
     <div id="header">
       <h1>SHIP Assistant [beta]</h1>
     </div>
-    <transition mode="out-in">
-      <router-view />
-    </transition>
+    <div class="content">
+      <transition mode="out-in">
+        <router-view />
+      </transition>
+    </div>
   </div>
 </template>
 
@@ -16,3 +18,20 @@ export default {
 </script>
 
 <style lang="scss" src="./style.scss"></style>
+<style lang="scss">
+#header {
+  background-color: var(--base-color);
+  border-radius: 0 0 3rem 3rem;
+  height: 3rem;
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+  h1 {
+    margin: 0;
+    color: var(--back-color);
+  }
+}
+.content {
+  margin: 0 clamp(5px, 5vw, 50px);
+}
+</style>

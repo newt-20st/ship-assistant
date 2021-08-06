@@ -3,7 +3,11 @@
   --base-color: #1e88e5;
   --link-color: #E6981E;
   --back-color: #ffffff;
-  --sub-color: #995E00;
+  --sub-color: #e2c13b;
+  --third-color: #995E00;
+}
+body {
+  margin: 0;
 }
 #app {
   margin: 0;
@@ -19,25 +23,32 @@
 .v-leave-to {
   opacity: 0;
 }
-h1 {
-  color: var(--base-color);
-  padding-left: .5rem;
-  border-bottom: .2rem solid var(--base-color);
-}
 h2 {
+  display: table;
   color: var(--base-color);
-  padding-left: .5rem;
-  border-left: .2rem solid var(--base-color);
+  padding: 0 1rem .3rem .5rem;
+  border-left: .3rem solid var(--base-color);
+  border-bottom: .3rem solid var(--base-color);
+  border-radius: 0 0 0 1rem;
+  margin: 1rem 0;
 }
 a {
   color: var(--link-color);
   text-decoration: none;
   transition: all .2s ease-in;
   padding: 0 .5rem;
+  border-radius: 1rem;
   &:hover {
     background-color: var(--link-color);
     color: var(--back-color);
   }
+}
+.backBtn {
+  display: inline-block;
+  border: 1px solid var(--link-color);
+  padding: .5rem 1rem;
+  margin: 1rem .5rem;
+  border-radius: 3rem;
 }
 #caution {
   padding: 0.5rem;
