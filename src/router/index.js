@@ -60,10 +60,19 @@ router.beforeEach((to, from, next) => {
       if (user) {
         next();
       } else {
+        console.log(to);
         if ((to.name == "PostId") || (to.name == "LogId")) {
-          next({ path: '/user?redirect=' + to.name + ',' + String(to.params.id) });
+          if (to.fullPath.split('?').length == 2) {
+            next({ path: '/user?redirect=' + to.name + ',' + String(to.params.id) + '&' + to.fullPath.split('?')[1].replaceAll('%3D', '=') });
+          } else {
+            next({ path: '/user?redirect=' + to.name + ',' + String(to.params.id) });
+          }
         } else {
-          next({ path: '/user?redirect=' + to.name });
+          if (to.fullPath.split('?').length == 2) {
+            next({ path: '/user?redirect=' + to.name + '&' + to.fullPath.split('?')[1].replaceAll('%3D', '=') });
+          } else {
+            next({ path: '/user?redirect=' + to.name });
+          }
         }
       }
     })
