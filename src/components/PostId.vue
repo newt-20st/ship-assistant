@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <router-link to="/post" class="backBtn">back</router-link>
+    <router-link to="/post" class="back">Back</router-link>
     <h2>{{ rows[0].value }}</h2>
     <table>
       <tr v-for="row in rows" v-bind:key="row.id">

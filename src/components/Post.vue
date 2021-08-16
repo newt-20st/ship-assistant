@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <router-link to="/" class="backBtn">back</router-link>
+    <router-link to="/" class="back">Back</router-link>
     <h2>Recent Post</h2>
     <ul>
       <li v-for="each in list" v-bind:key="each.id">

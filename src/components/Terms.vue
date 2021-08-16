@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <router-link to="/">トップへ戻る</router-link>
+    <router-link to="/">Back</router-link>
     <h2>利用規約</h2>
   </div>
 </template>

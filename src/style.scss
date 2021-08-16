@@ -51,12 +51,22 @@ a {
     color: var(--back-color);
   }
 }
-.backBtn {
+.back {
   display: inline-block;
-  border: 1px solid var(--link-color);
+  background-color: var(--link-color);
+  color: var(--back-color);
   padding: .5rem 1rem;
   margin: 1rem .5rem;
   border-radius: 3rem;
+  &:hover {
+    opacity: .7;
+  }
+  @media screen and (max-width:800px) {
+    position: fixed;
+    bottom: 10vh;
+    right: 5vw;
+    font-weight: 800;
+  }
 }
 #caution {
   padding: 0.5rem;

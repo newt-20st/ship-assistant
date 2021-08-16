@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link to="/">Back to top</router-link>
+    <router-link to="/" class="back">Back</router-link>
     <p>{{ this.message }}</p>
     <div v-show="this.status === false" id="notLoggedIn">
       <p>
@@ -163,14 +163,5 @@ export default {
 <style lang="scss" scoped>
 #userIcon {
   border-radius: 50%;
-}
-th,
-td {
-  padding: 0.5rem;
-}
-th {
-  text-align: right;
-  border-right: 0.2rem solid var(--base-color);
-  min-width: 7rem;
 }
 </style>

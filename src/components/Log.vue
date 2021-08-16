@@ -1,11 +1,11 @@
 <template>
   <div class="hello">
-    <router-link to="/" class="backBtn">back to top</router-link>
+    <router-link to="/" class="back">Back</router-link>
     <h2>GetLog list</h2>
     <ul>
       <li v-for="each in list" v-bind:key="each.id">
         <router-link v-bind:to="'/log/' + each.id">{{
-          each.timestamp.toDate()
+          each.timestamp
         }}</router-link>
       </li>
     </ul>
@@ -15,6 +15,7 @@
 <script>
 import firebase from "firebase";
 import "firebase/firestore";
+import moment from "moment";
 
 export default {
   name: "Log",
@@ -42,7 +43,9 @@ export default {
           const getData = doc.data();
           this.list.push({
             id: doc.id,
-            timestamp: getData.timestamp,
+            timestamp: moment(getData.timestamp.toDate()).format(
+              "YYYY/MM/DD HH:mm:ss"
+            ),
           });
         });
       })
@@ -55,9 +58,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-ul {
-  li {
-    margin: 1rem 0;
-  }
-}
 </style>

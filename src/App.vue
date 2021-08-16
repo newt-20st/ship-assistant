@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="header">
-      <h1>SHIP Assistant [beta]</h1>
+      <h1>SHIP Assistant Web</h1>
     </div>
     <div class="content">
       <transition mode="out-in">

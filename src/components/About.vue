@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <router-link to="/">トップへ戻る</router-link>
+    <router-link to="/" class="back">Back</router-link>
     <h2>このアプリについて</h2>
     <p>
       最新情報は<a

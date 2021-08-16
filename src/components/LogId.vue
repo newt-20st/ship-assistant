@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <router-link to="/log">back</router-link>
+    <router-link to="/log" class="back">Back</router-link>
     <h2>{{ this.timestamp }} の取得</h2>
     <div v-show="this.highCon.length != 0">
       <h3>高校連絡事項</h3>
@@ -38,7 +38,7 @@
 <script>
 import firebase from "firebase";
 import "firebase/firestore";
-
+import moment from "moment";
 export default {
   name: "logId",
   data() {
@@ -65,7 +65,9 @@ export default {
       .then((doc) => {
         if (doc.exists) {
           const getData = doc.data();
-          this.timestamp = getData.timestamp.toDate();
+          this.timestamp = moment(getData.timestamp.toDate()).format(
+            "YYYY/MM/DD HH:mm:ss"
+          );
           this.highCon = getData.highCon;
           this.highStudy = getData.highStudy;
           this.highSchoolNews = getData.highSchoolNews;
@@ -86,9 +88,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-ul {
-  li {
-    margin: 1rem 0;
-  }
-}
 </style>
