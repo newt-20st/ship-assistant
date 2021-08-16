@@ -8,6 +8,7 @@
 }
 body {
   margin: 0;
+  font-size: 16px;
 }
 #app {
   margin: 0;
@@ -24,17 +25,19 @@ body {
   opacity: 0;
 }
 h2 {
+  font-size: 1.5rem;
   display: table;
-  color: var(--base-color);
+  color: var(--third-color);
   padding: 0 1rem .3rem .5rem;
-  border-left: .3rem solid var(--base-color);
-  border-bottom: .3rem solid var(--base-color);
+  border-left: .3rem solid var(--third-color);
+  border-bottom: .3rem solid var(--third-color);
   border-radius: 0 0 0 1rem;
   margin: 1rem 0;
 }
 h3 {
+  font-size: 1.3rem;
   display: table;
-  background-color: var(--base-color);
+  background-color: var(--third-color);
   color: var(--back-color);
   padding: .5rem 1.5rem;
   border-radius: 2rem;

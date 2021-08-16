@@ -1,11 +1,17 @@
 <template>
   <div class="hello">
     <h2>最近の投稿</h2>
-    <router-link to="/post">こちら</router-link>
+    <p>
+      <router-link to="/post">こちら</router-link>
+    </p>
     <h2>ユーザー情報</h2>
-    <router-link to="/user">こちら</router-link>
+    <p>
+      <router-link to="/user">こちら</router-link>
+    </p>
     <h2>取得ログ</h2>
-    <router-link to="/log">こちら</router-link>
+    <p>
+      <router-link to="/log">こちら</router-link>
+    </p>
     <h2>このアプリについて</h2>
     <ul>
       <li>
@@ -17,7 +23,9 @@
       </li>
     </ul>
     <h2>Twitter</h2>
-    <a href="https://twitter.com/ShipNotify" target="_blank">こちら</a>
+    <p>
+      <a href="https://twitter.com/ShipNotify" target="_blank">こちら</a>
+    </p>
     <img id="logo" src="@/assets/ship-notify.png" />
   </div>
 </template>

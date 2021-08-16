@@ -1,7 +1,7 @@
 <template>
   <div class="post">
     <router-link to="/" class="back">Back</router-link>
-    <h2>Recent Post</h2>
+    <h2>最近の投稿</h2>
     <ul>
       <li v-for="each in list" v-bind:key="each.id">
         <router-link v-bind:to="'/post/' + each.id">{{
