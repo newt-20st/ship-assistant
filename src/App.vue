@@ -42,5 +42,6 @@ export default {
 }
 .content {
   margin: 0 clamp(5px, 5vw, 50px);
+  padding: 1rem 0;
 }
 </style>
