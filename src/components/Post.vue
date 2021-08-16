@@ -9,6 +9,7 @@
         }}</router-link>
       </li>
     </ul>
+    <button class="btn btn-primary">Load more</button>
   </div>
 </template>
 

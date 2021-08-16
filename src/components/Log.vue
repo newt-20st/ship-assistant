@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <router-link to="/" class="back">Back</router-link>
-    <h2>GetLog list</h2>
+    <h2>ログ一覧</h2>
     <ul>
       <li v-for="each in list" v-bind:key="each.id">
         <router-link v-bind:to="'/log/' + each.id">{{

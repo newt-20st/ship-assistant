@@ -6,7 +6,7 @@
       <p>
         SHIPのデータを確認するためには在校生である確認が必要です。学校配布のGoogleアカウントでログインしてください。
       </p>
-      <button @click="googleSignIn" class="signIn">
+      <button @click="googleSignIn" class="signIn btn btn-primary">
         Googleアカウントでログイン
       </button>
     </div>
@@ -19,7 +19,9 @@
           <td>{{ value }}</td>
         </tr>
       </table>
-      <button @click="googleSignOut" id="signOut">ログアウト</button>
+      <button @click="googleSignOut" id="signOut" class="btn btn-danger">
+        ログアウト
+      </button>
     </div>
   </div>
 </template>

@@ -40,18 +40,12 @@ h3 {
   border-radius: 2rem;
 
 }
-a {
+.back {
   color: var(--link-color);
   text-decoration: none;
   transition: all .2s ease-in;
   padding: 0 .5rem;
   border-radius: 1rem;
-  &:hover {
-    background-color: var(--link-color);
-    color: var(--back-color);
-  }
-}
-.back {
   display: inline-block;
   background-color: var(--link-color);
   color: var(--back-color);
@@ -59,6 +53,8 @@ a {
   margin: 1rem .5rem;
   border-radius: 3rem;
   &:hover {
+    color: var(--back-color);
+    text-decoration: none;
     opacity: .7;
   }
   @media screen and (max-width:800px) {
@@ -68,12 +64,6 @@ a {
     font-weight: 800;
   }
 }
-#caution {
-  padding: 0.5rem;
-  background-color: var(--sub-color);
-  color: var(--back-color);
-}
-
 table {
   border-collapse: separate;
   border-spacing: 0 .5rem;
