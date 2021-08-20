@@ -42,10 +42,10 @@ export default {
           this.list.push({
             id: getData.id,
             title:
-              getData.title +
-              " (" +
+              "[" +
               this.$store.state.channelData[getData.channel].name +
-              ")",
+              "] " +
+              getData.title,
             timestamp: getData.timestamp,
           });
         });
@@ -68,10 +68,10 @@ export default {
             this.list.push({
               id: getData.id,
               title:
-                getData.title +
-                " (" +
+                "[" +
                 this.$store.state.channelData[getData.channel].name +
-                ")",
+                "] " +
+                getData.title,
               timestamp: getData.timestamp,
             });
           });

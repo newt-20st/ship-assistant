@@ -11,13 +11,15 @@
       </button>
     </div>
     <div v-show="this.status === true" id="loggedIn">
-      <h2>{{ this.userData.username }}</h2>
-      <img id="userIcon" :src="this.userData.photoURL" />
+      <h2>{{ this.userName }}</h2>
+      <img id="userIcon" :src="this.photoURL" />
       <table>
-        <tr v-for="(value, key) in this.userData" v-bind:key="key">
-          <th>{{ key }}</th>
-          <td>{{ value }}</td>
-        </tr>
+        <tbody>
+          <tr v-for="each of this.userData" :key="each.id">
+            <th>{{ each.name }}</th>
+            <td>{{ each.value }}</td>
+          </tr>
+        </tbody>
       </table>
       <button @click="googleSignOut" id="signOut" class="btn btn-danger">
         ログアウト
@@ -28,19 +30,35 @@
 
 <script>
 import firebase from "firebase";
+import moment from "moment";
 export default {
   name: "User",
   data() {
     return {
       status: false,
       message: "",
-      userData: {
-        username: "",
-        mailaddress: "",
-        creationTime: "",
-        lastLoginTime: "",
-        photoURL: "",
-      },
+      userName: "",
+      photoURL: "",
+      userData: [
+        {
+          id: "mailaddress",
+          prop: ["email"],
+          name: "メールアドレス",
+          value: "",
+        },
+        {
+          id: "creationTime",
+          prop: ["metadata", "creationTime"],
+          name: "アカウント作成",
+          value: "",
+        },
+        {
+          id: "lastSignInTime",
+          prop: ["metadata", "lastSignInTime"],
+          name: "最終ログイン",
+          value: "",
+        },
+      ],
     };
   },
   created: function () {
@@ -48,11 +66,21 @@ export default {
       if (user) {
         console.log(user);
         this.status = true;
-        this.userData.username = user.displayName;
-        this.userData.mailaddress = user.email;
-        this.userData.creationTime = user.metadata.creationTime;
-        this.userData.lastLoginTime = user.metadata.lastSignInTime;
-        this.userData.photoURL = user.photoURL;
+        this.userName = user.displayName;
+        this.photoURL = user.photoURL;
+        for (const [index, data] of this.userData.entries()) {
+          var f = user;
+          for (const each of data.prop) {
+            f = f[each];
+          }
+          if (data.id.indexOf("Time") != -1) {
+            this.userData[index].value = moment(f).format(
+              "YYYY/MM/DD HH:mm:ss"
+            );
+          } else {
+            this.userData[index].value = f;
+          }
+        }
       } else {
         this.status = false;
       }
@@ -85,10 +113,15 @@ export default {
                 user.email == "ship.assistant.official@gmail.com"
               ) {
                 this.status = true;
-                this.userData.username = user.displayName;
-                this.userData.mailaddress = user.email;
-                this.userData.creationTime = user.metadata.creationTime;
-                this.userData.lastLoginTime = user.metadata.lastSignInTime;
+                this.userName = user[displayName];
+                this.photoURL = user[photoURL];
+                for (const [index, data] in this.userData.entries()) {
+                  f = user;
+                  for (each of data) {
+                    f = f[each];
+                  }
+                  this.userData[index].value = f;
+                }
                 this.message = "ログインに成功しました。";
                 this.$gtag.event("login", {
                   event_category: "engagement",

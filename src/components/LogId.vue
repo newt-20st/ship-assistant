@@ -2,30 +2,10 @@
   <div class="hello">
     <router-link to="/log" class="back">Back</router-link>
     <h2>{{ this.timestamp }} の取得</h2>
-    <div v-show="this.highCon.length != 0">
-      <h3>高校連絡事項</h3>
+    <div v-for="channel of updateChannel" :key="channel.channel">
+      <h3>{{ channel.name }}</h3>
       <ul>
-        <li v-for="each in this.highCon" v-bind:key="each">
-          <router-link v-bind:to="'/post/' + each.id[0]">{{
-            each.title
-          }}</router-link>
-        </li>
-      </ul>
-    </div>
-    <div v-show="this.highStudy.length != 0">
-      <h3>高校学習教材</h3>
-      <ul>
-        <li v-for="each in this.highStudy" v-bind:key="each">
-          <router-link v-bind:to="'/post/' + each.id[0]">{{
-            each.title
-          }}</router-link>
-        </li>
-      </ul>
-    </div>
-    <div v-show="this.highSchoolNews.length != 0">
-      <h3>高校学校通信</h3>
-      <ul>
-        <li v-for="each in this.highSchoolNews" v-bind:key="each">
+        <li v-for="each in channel.data" :key="each.id[0]">
           <router-link v-bind:to="'/post/' + each.id[0]">{{
             each.title
           }}</router-link>
@@ -45,9 +25,7 @@ export default {
     return {
       id: this.$route.params.id,
       timestamp: "",
-      highCon: [],
-      highStudy: [],
-      highSchoolNews: [],
+      updateChannel: [],
     };
   },
   head: {
@@ -68,10 +46,15 @@ export default {
           this.timestamp = moment(getData.timestamp.toDate()).format(
             "YYYY/MM/DD HH:mm:ss"
           );
-          this.highCon = getData.highCon;
-          this.highStudy = getData.highStudy;
-          this.highSchoolNews = getData.highSchoolNews;
-          console.log("Document data:", doc.data());
+          for (const channel of this.$store.state.channelList) {
+            if (getData[channel] != 0) {
+              this.updateChannel.push({
+                channel: channel,
+                name: this.$store.state.channelData[channel].name,
+                data: getData[channel],
+              });
+            }
+          }
         } else {
           console.log("No such document!");
         }

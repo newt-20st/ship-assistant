@@ -3,10 +3,12 @@
     <router-link to="/post" class="back">Back</router-link>
     <h2>{{ rows[0].value }}</h2>
     <table>
-      <tr v-for="row in rows" v-bind:key="row.id">
-        <th>{{ row.key }}</th>
-        <td>{{ row.value }}</td>
-      </tr>
+      <tbody>
+        <tr v-for="row in rows" v-bind:key="row.id">
+          <th>{{ row.key }}</th>
+          <td>{{ row.value }}</td>
+        </tr>
+      </tbody>
     </table>
     <div v-show="file.name.length != 0">
       <h3>Files</h3>

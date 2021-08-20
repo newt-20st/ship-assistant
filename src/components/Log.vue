@@ -2,13 +2,24 @@
   <div class="hello">
     <router-link to="/" class="back">Back</router-link>
     <h2>ログ一覧</h2>
-    <ul>
-      <li v-for="each in list" v-bind:key="each.id">
-        <router-link v-bind:to="'/log/' + each.id">{{
-          each.timestamp
-        }}</router-link>
-      </li>
-    </ul>
+    <table>
+      <thead>
+        <tr>
+          <th>取得日時</th>
+          <th>更新チャンネル</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="each in list" :key="each.id">
+          <td>{{ each.timestamp }}</td>
+          <td>
+            <router-link :to="'/log/' + each.id">
+              {{ each.channelList.slice(0, -1) }}
+            </router-link>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -39,13 +50,19 @@ export default {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          console.log(doc.id, " => ", doc.data());
           const getData = doc.data();
+          let updateChannel = "";
+          for (const prop of this.$store.state.channelList) {
+            if (getData[prop].length != 0) {
+              updateChannel += this.$store.state.channelData[prop].name + ",";
+            }
+          }
           this.list.push({
             id: doc.id,
             timestamp: moment(getData.timestamp.toDate()).format(
               "YYYY/MM/DD HH:mm:ss"
             ),
+            channelList: updateChannel,
           });
         });
       })

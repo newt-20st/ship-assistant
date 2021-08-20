@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
+        channelList: ["highCon", "highStudy", "highSchoolNews", "juniorCon", "juniorStudy", "juniorSchoolNews"],
         channelData: {
             highCon: {
                 name: "高校連絡事項",
