@@ -1,5 +1,8 @@
 <template>
-  <div class="hello">
+  <div class="top">
+    <p>
+      SHIPに投稿された文書の情報の確認や閲覧ができる簡易Webクライアントアプリです。
+    </p>
     <h2>最近の投稿</h2>
     <p>
       <router-link to="/post">こちら</router-link>

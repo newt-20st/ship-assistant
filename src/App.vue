@@ -1,16 +1,6 @@
 <template>
   <div id="app">
-    <b-navbar toggleable="lg" type="dark" variant="primary">
-      <b-navbar-brand to="/">SHIP-Assistant Web</b-navbar-brand>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-nav-item to="/post/">最近の投稿</b-nav-item>
-          <b-nav-item to="/log/">ログ</b-nav-item>
-          <b-nav-item to="/user/">ユーザー情報</b-nav-item>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
+    <Header />
     <div class="content">
       <transition mode="out-in">
         <router-view />
@@ -20,8 +10,10 @@
 </template>
 
 <script>
+import Header from "./components/Header.vue";
 export default {
   name: "App",
+  components: { Header },
 };
 </script>
 
