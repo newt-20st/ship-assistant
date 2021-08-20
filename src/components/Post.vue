@@ -41,7 +41,11 @@ export default {
           const getData = doc.data();
           this.list.push({
             id: getData.id,
-            title: getData.title + " (" + getData.channel + ")",
+            title:
+              getData.title +
+              " (" +
+              this.$store.state.channelData[getData.channel].name +
+              ")",
             timestamp: getData.timestamp,
           });
         });
@@ -63,7 +67,11 @@ export default {
             const getData = doc.data();
             this.list.push({
               id: getData.id,
-              title: getData.title + " (" + getData.channel + ")",
+              title:
+                getData.title +
+                " (" +
+                this.$store.state.channelData[getData.channel].name +
+                ")",
               timestamp: getData.timestamp,
             });
           });

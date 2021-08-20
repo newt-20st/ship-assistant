@@ -80,7 +80,12 @@ export default {
           const getData = doc.data();
           this.title = getData.title;
           for (let i = 0; i < this.rows.length; i++) {
-            this.rows[i].value = getData[this.rows[i].key];
+            if (this.rows[i].key == "channel") {
+              this.rows[i].value =
+                this.$store.state.channelData[getData[this.rows[i].key]].name;
+            } else {
+              this.rows[i].value = getData[this.rows[i].key];
+            }
           }
           if (getData.channel == "highCon" || getData.channel == "highStudy") {
             const storage = firebase.storage();
