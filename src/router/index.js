@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import VueHead from 'vue-head'
 import firebase from 'firebase'
 
-const loadView = view => () => import(`@/components/${view}`)
+const loadView = view => () => import(`@/view/${view}`)
 
 const router = new Router({
   mode: 'history',

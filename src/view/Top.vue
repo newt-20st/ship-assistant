@@ -18,7 +18,7 @@
         <a
           href="https://www.notion.so/newt-house/SHIP-Assistant-s-Note-c599cf2125364a80920b0447f76d717a"
           target="_blank"
-          >詳細( 外部サイトが開きます)
+          >詳細(外部サイトが開きます)
         </a>
       </li>
     </ul>

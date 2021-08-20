@@ -1,6 +1,6 @@
 <template>
-  <div class="hello">
-    <router-link to="/post" class="back">Back</router-link>
+  <div class="post">
+    <b-breadcrumb :items="path"></b-breadcrumb>
     <h2>{{ rows[0].value }}</h2>
     <table>
       <tbody>
@@ -61,6 +61,20 @@ export default {
         link: [],
       },
       title: "title",
+      path: [
+        {
+          text: "ホーム",
+          to: "/",
+        },
+        {
+          text: "投稿一覧",
+          to: "/post/",
+        },
+        {
+          text: "",
+          active: true,
+        },
+      ],
     };
   },
   head: {
@@ -81,6 +95,7 @@ export default {
           console.log(doc.id, " => ", doc.data());
           const getData = doc.data();
           this.title = getData.title;
+          this.path[2].text = getData.title;
           for (let i = 0; i < this.rows.length; i++) {
             if (this.rows[i].key == "channel") {
               this.rows[i].value =

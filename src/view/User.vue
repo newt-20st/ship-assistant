@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <router-link to="/" class="back">Back</router-link>
+  <div class="user">
+    <b-breadcrumb :items="path" class="overflow-scroll"></b-breadcrumb>
     <p>{{ this.message }}</p>
     <div v-show="this.status === false" id="notLoggedIn">
       <p>
@@ -59,6 +59,16 @@ export default {
           value: "",
         },
       ],
+      path: [
+        {
+          text: "ホーム",
+          to: "/",
+        },
+        {
+          text: "ユーザー情報",
+          active: true,
+        },
+      ],
     };
   },
   created: function () {
@@ -113,14 +123,20 @@ export default {
                 user.email == "ship.assistant.official@gmail.com"
               ) {
                 this.status = true;
-                this.userName = user[displayName];
-                this.photoURL = user[photoURL];
-                for (const [index, data] in this.userData.entries()) {
-                  f = user;
-                  for (each of data) {
+                this.userName = user.displayName;
+                this.photoURL = user.photoURL;
+                for (const [index, data] of this.userData.entries()) {
+                  var f = user;
+                  for (const each of data.prop) {
                     f = f[each];
                   }
-                  this.userData[index].value = f;
+                  if (data.id.indexOf("Time") != -1) {
+                    this.userData[index].value = moment(f).format(
+                      "YYYY/MM/DD HH:mm:ss"
+                    );
+                  } else {
+                    this.userData[index].value = f;
+                  }
                 }
                 this.message = "ログインに成功しました。";
                 this.$gtag.event("login", {

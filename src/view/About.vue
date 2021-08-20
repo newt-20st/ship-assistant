@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="about">
     <router-link to="/" class="back">Back</router-link>
     <h2>このアプリについて</h2>
     <p>

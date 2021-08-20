@@ -1,6 +1,6 @@
 <template>
-  <div class="hello">
-    <router-link to="/log" class="back">Back</router-link>
+  <div class="log">
+    <b-breadcrumb :items="path"></b-breadcrumb>
     <h2>{{ this.timestamp }} の取得</h2>
     <div v-for="channel of updateChannel" :key="channel.channel">
       <h3>{{ channel.name }}</h3>
@@ -26,6 +26,20 @@ export default {
       id: this.$route.params.id,
       timestamp: "",
       updateChannel: [],
+      path: [
+        {
+          text: "ホーム",
+          to: "/",
+        },
+        {
+          text: "ログ一覧",
+          to: "/log/",
+        },
+        {
+          text: "",
+          active: true,
+        },
+      ],
     };
   },
   head: {
@@ -43,9 +57,11 @@ export default {
       .then((doc) => {
         if (doc.exists) {
           const getData = doc.data();
-          this.timestamp = moment(getData.timestamp.toDate()).format(
+          const timestamp = moment(getData.timestamp.toDate()).format(
             "YYYY/MM/DD HH:mm:ss"
           );
+          this.timestamp = timestamp;
+          this.path[2].text = timestamp;
           for (const channel of this.$store.state.channelList) {
             if (getData[channel] != 0) {
               this.updateChannel.push({

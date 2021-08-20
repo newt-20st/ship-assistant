@@ -1,6 +1,6 @@
 <template>
-  <div class="hello">
-    <router-link to="/" class="back">Back</router-link>
+  <div class="log">
+    <b-breadcrumb :items="path"></b-breadcrumb>
     <h2>ログ一覧</h2>
     <table>
       <thead>
@@ -33,6 +33,16 @@ export default {
   data() {
     return {
       list: [],
+      path: [
+        {
+          text: "ホーム",
+          to: "/",
+        },
+        {
+          text: "ログ一覧",
+          to: true,
+        },
+      ],
     };
   },
   head: {
