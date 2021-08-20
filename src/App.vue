@@ -25,7 +25,6 @@ export default {
 };
 </script>
 
-<style lang="scss" src="./style.scss"></style>
 <style lang="scss">
 #header {
   background-color: var(--base-color);

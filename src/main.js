@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(Vuex)
 Vue.use(BootstrapVue)
-
+import './style.scss'
 Vue.config.productionTip = false
 
 var firebaseConfig = {
