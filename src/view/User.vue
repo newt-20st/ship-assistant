@@ -1,27 +1,80 @@
 <template>
   <div class="user">
     <b-breadcrumb :items="path" class="overflow-scroll"></b-breadcrumb>
-    <p>{{ this.message }}</p>
-    <div v-show="this.status === false" id="notLoggedIn">
+    <div v-show="message.text !== ''">
+      <div :class="'alert alert-' + message.type" role="alert">
+        {{ message.text }}
+      </div>
+    </div>
+    <div v-show="status === false" id="notLoggedIn">
       <p>
         SHIPのデータを確認するためには在校生である確認が必要です。学校配布のGoogleアカウントでログインしてください。
       </p>
-      <button @click="googleSignIn" class="signIn btn btn-primary">
-        Googleアカウントでログイン
-      </button>
+      <p>
+        <button
+          type="button"
+          @click="googleSignIn"
+          class="signIn btn btn-primary"
+        >
+          学校のアカウントでログイン
+        </button>
+      </p>
+      <p>
+        または、「栄東生にしか分からない質問」に答えてください:
+        <b>学習実践五訓その四、「けじめある学習を行い、 [ ？ ] を育てよう」</b>
+      </p>
+      <form>
+        <div class="mb-3">
+          <label class="form-label">※すべてひらがなで入力してください</label>
+          <input type="text" class="form-control" v-model="passPhrase" />
+        </div>
+        <button
+          type="button"
+          @click="passPhraseSignIn()"
+          class="btn btn-success"
+        >
+          確認
+        </button>
+      </form>
     </div>
-    <div v-show="this.status === true" id="loggedIn">
-      <h2>{{ this.userName }}</h2>
-      <img id="userIcon" :src="this.photoURL" />
-      <table>
-        <tbody>
-          <tr v-for="each of this.userData" :key="each.id">
-            <th>{{ each.name }}</th>
-            <td>{{ each.value }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <button @click="googleSignOut" id="signOut" class="btn btn-danger">
+    <div v-show="status === true" id="loggedIn">
+      <div v-show="type == 'own'">
+        <h2>{{ user.userName }}</h2>
+        <img id="userIcon" :src="user.photoURL" />
+        <table>
+          <tbody>
+            <tr v-for="each of userData" :key="each.id">
+              <th>{{ each.name }}</th>
+              <td>{{ each.value }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div v-show="type == 'public'">
+        <h2>共有アカウントでのログイン</h2>
+        <p>
+          このアカウントは共有アカウントです。データの閲覧は可能ですが、セキュリティ上栄東生であることを完全に担保できるものではないため一部の機能を制限しております。当サイトをご利用になる際はなるべく個人のアカウントでログインしていただきますようお願いします。
+        </p>
+        <h3>共有アカウントで制限される機能</h3>
+        <ul>
+          <li>再度アクセスした際にログイン状態を維持する機能</li>
+        </ul>
+        <p>
+          <button
+            type="button"
+            @click="googleSignIn"
+            class="signIn btn btn-primary"
+          >
+            学校のGoogleアカウントでログイン
+          </button>
+        </p>
+      </div>
+      <button
+        type="button"
+        @click="signOut"
+        id="signOut"
+        class="btn btn-danger"
+      >
         ログアウト
       </button>
     </div>
@@ -35,10 +88,10 @@ export default {
   name: "User",
   data() {
     return {
+      message: { text: "", type: "primary" },
       status: false,
-      message: "",
-      userName: "",
-      photoURL: "",
+      type: "",
+      user: {},
       userData: [
         {
           id: "mailaddress",
@@ -59,6 +112,7 @@ export default {
           value: "",
         },
       ],
+      passPhrase: "",
       path: [
         {
           text: "ホーム",
@@ -71,31 +125,6 @@ export default {
       ],
     };
   },
-  created: function () {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        console.log(user);
-        this.status = true;
-        this.userName = user.displayName;
-        this.photoURL = user.photoURL;
-        for (const [index, data] of this.userData.entries()) {
-          var f = user;
-          for (const each of data.prop) {
-            f = f[each];
-          }
-          if (data.id.indexOf("Time") != -1) {
-            this.userData[index].value = moment(f).format(
-              "YYYY/MM/DD HH:mm:ss"
-            );
-          } else {
-            this.userData[index].value = f;
-          }
-        }
-      } else {
-        this.status = false;
-      }
-    });
-  },
   head: {
     title() {
       return {
@@ -103,8 +132,38 @@ export default {
       };
     },
   },
+  mounted() {
+    if (this.type !== "public") {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          this.status = true;
+          if (user.email.indexOf("@ship.sakaehigashi.ed.jp") != -1) {
+            this.type = "own";
+            this.user = user;
+            for (const [index, data] of this.userData.entries()) {
+              var f = user;
+              for (const each of data.prop) {
+                f = f[each];
+              }
+              if (data.id.indexOf("Time") != -1) {
+                this.userData[index].value = moment(f).format(
+                  "YYYY/MM/DD HH:mm:ss"
+                );
+              } else {
+                this.userData[index].value = f;
+              }
+            }
+          } else {
+            this.type = "public";
+          }
+        } else {
+          this.status = false;
+        }
+      });
+    }
+  },
   methods: {
-    googleSignIn: function () {
+    googleSignIn() {
       firebase
         .auth()
         .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
@@ -118,13 +177,10 @@ export default {
             .signInWithPopup(provider)
             .then((result) => {
               const user = result.user;
-              if (
-                user.email.indexOf("@ship.sakaehigashi.ed.jp") != -1 ||
-                user.email == "ship.assistant.official@gmail.com"
-              ) {
+              if (user.email.indexOf("@ship.sakaehigashi.ed.jp") != -1) {
                 this.status = true;
-                this.userName = user.displayName;
-                this.photoURL = user.photoURL;
+                this.type = "own";
+                this.user = user;
                 for (const [index, data] of this.userData.entries()) {
                   var f = user;
                   for (const each of data.prop) {
@@ -138,38 +194,27 @@ export default {
                     this.userData[index].value = f;
                   }
                 }
-                this.message = "ログインに成功しました。";
+                this.message = {
+                  text: "ログインに成功しました。",
+                  type: "success",
+                };
                 this.$gtag.event("login", {
                   event_category: "engagement",
                   event_label: "success",
                 });
+                this.redirect();
               } else {
                 user
                   .delete()
                   .then(() => {
-                    this.message =
-                      "これは栄東のアカウントではありません。 @ship.sakaehigashi.ed.jp で終わるGoogleアカウントでログインしてください。";
+                    this.message = {
+                      text: "これは栄東のアカウントではありません。 @ship.sakaehigashi.ed.jp で終わるGoogleアカウントでログインしてください。",
+                      type: "danger",
+                    };
                   })
                   .catch((error) => {
                     console.log(error);
                   });
-              }
-            })
-            .then(() => {
-              if (this.status) {
-                if (this.$route.query.redirect) {
-                  const redirect = this.$route.query.redirect.split(",");
-                  if (redirect[0] == "Post") {
-                    this.$router.push("/post/");
-                  } else if (redirect[0] == "PostId") {
-                    this.$router.push("/post/" + redirect[1]);
-                  } else if (redirect[0] == "Log") {
-                    this.$router.push("/log/");
-                  } else if (redirect[0] == "LogId") {
-                    this.$router.push("/log/" + redirect[1]);
-                  }
-                }
-              } else {
                 this.$gtag.event("login", {
                   event_category: "engagement",
                   event_label: "reject",
@@ -188,7 +233,7 @@ export default {
           console.log(error);
         });
     },
-    googleSignOut: function () {
+    signOut() {
       firebase
         .auth()
         .signOut()
@@ -206,6 +251,57 @@ export default {
             event_label: "error",
           });
         });
+    },
+    passPhraseSignIn() {
+      firebase
+        .auth()
+        .setPersistence(firebase.auth.Auth.Persistence.SESSION)
+        .then(() => {
+          firebase
+            .auth()
+            .signInWithEmailAndPassword(
+              "ship.assistant.official@gmail.com",
+              this.passPhrase
+            )
+            .then((result) => {
+              this.status = true;
+              this.type = "public";
+              this.user = result.user;
+              this.message = {
+                text: "ログインに成功しました。",
+                type: "success",
+              };
+              this.$gtag.event("login", {
+                event_category: "engagement",
+                event_label: "success_public",
+              });
+              this.redirect();
+            })
+            .catch((error) => {
+              this.$gtag.event("login", {
+                event_category: "engagement",
+                event_label: "reject_public",
+              });
+              this.message = {
+                text: "パスフレーズが違います。",
+                type: "danger",
+              };
+            });
+        });
+    },
+    redirect() {
+      if (this.$route.query.redirect) {
+        const redirect = this.$route.query.redirect.split(",");
+        if (redirect[0] == "Post") {
+          this.$router.push("/post/");
+        } else if (redirect[0] == "PostId") {
+          this.$router.push("/post/" + redirect[1]);
+        } else if (redirect[0] == "Log") {
+          this.$router.push("/log/");
+        } else if (redirect[0] == "LogId") {
+          this.$router.push("/log/" + redirect[1]);
+        }
+      }
     },
   },
 };

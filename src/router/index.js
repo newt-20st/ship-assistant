@@ -13,7 +13,7 @@ const router = new Router({
       name: 'Top',
       component: loadView('Top')
     }, {
-      path: '/user',
+      path: '/user/',
       name: 'User',
       component: loadView('User')
     }, {
@@ -36,15 +36,6 @@ const router = new Router({
       name: 'LogId',
       component: loadView('LogId'),
       meta: { requiresAuth: true },
-    }
-    , {
-      path: '/about/',
-      name: 'About',
-      component: loadView('About'),
-    }, {
-      path: '/about/terms',
-      name: 'Terms',
-      component: loadView('Terms'),
     }
   ]
 })

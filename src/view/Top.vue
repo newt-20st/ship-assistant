@@ -5,15 +5,15 @@
     </p>
     <h2>最近の投稿</h2>
     <p>
-      <router-link to="/post">こちら</router-link>
+      <router-link to="/post/">こちら</router-link>
     </p>
     <h2>ユーザー情報</h2>
     <p>
-      <router-link to="/user">こちら</router-link>
+      <router-link to="/user/">こちら</router-link>
     </p>
     <h2>取得ログ</h2>
     <p>
-      <router-link to="/log">こちら</router-link>
+      <router-link to="/log/">こちら</router-link>
     </p>
     <h2>このアプリについて</h2>
     <ul>
