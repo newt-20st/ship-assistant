@@ -3,15 +3,9 @@
     <b-breadcrumb :items="path"></b-breadcrumb>
     <h2>ログ一覧</h2>
     <table>
-      <thead>
-        <tr>
-          <th>取得日時</th>
-          <th>更新チャンネル</th>
-        </tr>
-      </thead>
       <tbody>
         <tr v-for="each in list" :key="each.id">
-          <td>{{ each.timestamp }}</td>
+          <th>{{ each.timestamp }}</th>
           <td>
             <router-link :to="'/log/' + each.id">
               {{ each.channelList.slice(0, -1) }}

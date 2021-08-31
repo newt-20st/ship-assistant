@@ -39,7 +39,7 @@
     </div>
     <div v-show="status === true" id="loggedIn">
       <div v-show="type == 'own'">
-        <h2>{{ user.userName }}</h2>
+        <h2>{{ user.displayName }}</h2>
         <img id="userIcon" :src="user.photoURL" />
         <table>
           <tbody>

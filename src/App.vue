@@ -1,19 +1,31 @@
 <template>
-  <div id="app">
-    <Header />
-    <div class="content">
-      <transition mode="out-in">
-        <router-view />
-      </transition>
+  <div>
+    <Loading v-show="loading"></Loading>
+    <div v-show="!loading" id="app">
+      <Header />
+      <div class="content">
+        <transition mode="out-in">
+          <router-view />
+        </transition>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Loading from "@/components/Loading.vue";
 import Header from "./components/Header.vue";
 export default {
   name: "App",
-  components: { Header },
+  data() {
+    return {
+      loading: true,
+    };
+  },
+  mounted() {
+    this.loading = false;
+  },
+  components: { Loading, Header },
 };
 </script>
 
