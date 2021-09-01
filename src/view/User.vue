@@ -7,41 +7,49 @@
       </div>
     </div>
     <div v-show="status === false" id="notLoggedIn">
-      <p>
-        SHIPのデータを確認するためには在校生である確認が必要です。学校配布のGoogleアカウントでログインしてください。
-      </p>
-      <p>
-        <button
-          type="button"
-          @click="googleSignIn"
-          class="signIn btn btn-primary"
-        >
-          学校のアカウントでログイン
-        </button>
-      </p>
-      <p>
-        または、パスフレーズとして次の [ ？ ]
-        に当てはまる言葉を入力してください:<br />
-        <b>学習実践五訓その四、「けじめある学習を行い、 [ ？ ] を育てよう」</b>
-      </p>
-      <form>
-        <div class="mb-3">
-          <label class="form-label">※すべてひらがなで入力してください</label>
-          <input type="text" class="form-control" v-model="passPhrase" />
-        </div>
-        <button
-          type="button"
-          @click="passPhraseSignIn()"
-          class="btn btn-success"
-        >
-          確認
-        </button>
-      </form>
+      <div class="block">
+        <p>
+          SHIPの情報を確認するためには在校生であることの確認が必要です。下のボタンから学校配布のGoogleアカウントでログインしてください。
+        </p>
+        <p>
+          <button
+            type="button"
+            @click="googleSignIn"
+            class="signIn btn btn-primary"
+          >
+            学校のアカウントでログイン
+          </button>
+        </p>
+      </div>
+      <div class="block">
+        <p>
+          または、パスフレーズとして次の [ ？ ]
+          に当てはまる言葉を入力してください:<br />
+          <b
+            >学習実践五訓その四、「けじめある学習を行い、 [ ？ ] を育てよう」</b
+          >
+        </p>
+        <form>
+          <div class="mb-3">
+            <label class="form-label">※すべてひらがなで入力してください</label>
+            <input type="text" class="form-control" v-model="passPhrase" />
+          </div>
+          <button
+            type="button"
+            @click="passPhraseSignIn()"
+            class="btn btn-success"
+          >
+            確認
+          </button>
+        </form>
+      </div>
     </div>
     <div v-show="status === true" id="loggedIn">
       <div v-show="type == 'own'">
         <h2>{{ user.displayName }}</h2>
-        <img id="userIcon" :src="user.photoURL" />
+        <div class="iconWrapper">
+          <img id="userIcon" :src="user.photoURL" />
+        </div>
         <table>
           <tbody>
             <tr v-for="each of userData" :key="each.id">
@@ -50,6 +58,9 @@
             </tr>
           </tbody>
         </table>
+        <p>
+          ※ここに表示されているメールアドレス以外の情報はサイト運営側では確認できません。
+        </p>
       </div>
       <div v-show="type == 'public'">
         <h2>共有アカウントでのログイン</h2>
@@ -309,7 +320,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media screen and (max-width: 500px) {
+  .iconWrapper {
+    text-align: center;
+  }
+}
 #userIcon {
+  display: inline-block;
   border-radius: 50%;
+}
+.block {
+  border: 2px solid var(--third-color);
+  border-radius: 2rem;
+  margin: 1rem;
+  padding: 1rem;
 }
 </style>

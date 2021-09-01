@@ -51,7 +51,6 @@ router.beforeEach((to, from, next) => {
       if (user) {
         next();
       } else {
-        console.log(to);
         if ((to.name == "PostId") || (to.name == "LogId")) {
           if (to.fullPath.split('?').length == 2) {
             next({ path: '/user?redirect=' + to.name + ',' + String(to.params.id) + '&' + to.fullPath.split('?')[1].replaceAll('%3D', '=') });

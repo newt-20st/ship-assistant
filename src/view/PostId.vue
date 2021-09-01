@@ -1,7 +1,7 @@
 <template>
   <div class="post">
-    <b-breadcrumb :items="path"></b-breadcrumb>
     <div class="container-xxl">
+      <b-breadcrumb :items="path"></b-breadcrumb>
       <h2>{{ rows[0].value }}</h2>
       <div class="row">
         <div class="col-lg-8">

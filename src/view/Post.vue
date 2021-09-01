@@ -1,15 +1,22 @@
 <template>
   <div class="post">
-    <b-breadcrumb :items="path"></b-breadcrumb>
-    <h2>最近の投稿</h2>
-    <ul>
-      <li v-for="each in list" v-bind:key="each.id">
-        <router-link v-bind:to="'/post/' + each.id">{{
-          each.title
-        }}</router-link>
-      </li>
-    </ul>
-    <button class="btn btn-primary" @click="load()">Load more</button>
+    <div class="container-xxl">
+      <b-breadcrumb :items="path"></b-breadcrumb>
+      <h2>最近の投稿</h2>
+      <div class="row">
+        <div class="col-lg-8">
+          <ul>
+            <li v-for="each in list" v-bind:key="each.id">
+              <router-link v-bind:to="'/post/' + each.id">{{
+                each.title
+              }}</router-link>
+            </li>
+          </ul>
+          <button class="btn btn-primary" @click="load()">Load more</button>
+        </div>
+        <div class="col-lg-4"></div>
+      </div>
+    </div>
   </div>
 </template>
 
