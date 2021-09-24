@@ -210,7 +210,7 @@ export default {
                   text: "ログインに成功しました。",
                   type: "success",
                 };
-                this.$gtag.event("login", {
+                this.$gtag.event("login_success", {
                   event_category: "engagement",
                   event_label: "success",
                 });
@@ -227,14 +227,14 @@ export default {
                   .catch((error) => {
                     console.log(error);
                   });
-                this.$gtag.event("login", {
+                this.$gtag.event("login_reject", {
                   event_category: "engagement",
                   event_label: "reject",
                 });
               }
             })
             .catch((error) => {
-              this.$gtag.event("login", {
+              this.$gtag.event("login_resign", {
                 event_category: "engagement",
                 event_label: "resign",
               });
@@ -251,14 +251,14 @@ export default {
         .signOut()
         .then(() => {
           this.status = false;
-          this.$gtag.event("logout", {
+          this.$gtag.event("logout_success", {
             event_category: "engagement",
             event_label: "success",
           });
         })
         .catch((error) => {
           console.log(error);
-          this.$gtag.event("logout", {
+          this.$gtag.event("logout_error", {
             event_category: "engagement",
             event_label: "error",
           });
@@ -283,14 +283,14 @@ export default {
                 text: "ログインに成功しました。",
                 type: "success",
               };
-              this.$gtag.event("login", {
+              this.$gtag.event("login_public_success", {
                 event_category: "engagement",
                 event_label: "success_public",
               });
               this.redirect();
             })
             .catch((error) => {
-              this.$gtag.event("login", {
+              this.$gtag.event("login_public_reject", {
                 event_category: "engagement",
                 event_label: "reject_public",
               });
