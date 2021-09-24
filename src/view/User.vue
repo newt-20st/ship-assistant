@@ -43,6 +43,13 @@
           </button>
         </form>
       </div>
+      <p>
+        上のいずれの方法でもログインできない場合、<a
+          href="https://forms.gle/kthgGcTNvPSHh7bW8"
+          target="_blank"
+          >こちらのフォーム</a
+        >より不具合報告としてお問い合わせください。
+      </p>
     </div>
     <div v-show="status === true" id="loggedIn">
       <div v-show="type == 'own'">
@@ -58,8 +65,16 @@
             </tr>
           </tbody>
         </table>
+        <p>※この情報は運営側では確認できません。</p>
         <p>
-          ※ここに表示されているメールアドレス以外の情報はサイト運営側では確認できません。
+          <button
+            type="button"
+            @click="signOut"
+            id="signOut"
+            class="btn btn-danger"
+          >
+            ログアウト
+          </button>
         </p>
       </div>
       <div v-show="type == 'public'">
@@ -79,16 +94,16 @@
           >
             学校のGoogleアカウントでログイン
           </button>
+          <button
+            type="button"
+            @click="signOut"
+            id="signOut"
+            class="btn btn-danger"
+          >
+            ログアウト
+          </button>
         </p>
       </div>
-      <button
-        type="button"
-        @click="signOut"
-        id="signOut"
-        class="btn btn-danger"
-      >
-        ログアウト
-      </button>
     </div>
   </div>
 </template>

@@ -98,7 +98,6 @@ export default {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          console.log(doc.id, " => ", doc.data());
           const getData = doc.data();
           this.title = getData.title;
           this.path[2].text = getData.title;
