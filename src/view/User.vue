@@ -80,7 +80,7 @@
       <div v-show="type == 'public'">
         <h2>共有アカウントでのログイン</h2>
         <p>
-          このアカウントは共有アカウントです。データの閲覧は可能ですが、セキュリティ上在校生であることを完全に担保できるものではないため一部の機能を制限しております。当サイトをご利用になる際はなるべく個人のアカウントでログインしていただきますようお願いします。
+          このアカウントは共有アカウントです。セキュリティの観点から一部の機能を制限しております。当サイトをご利用になる際はなるべく個人の学校配布アカウントでログインしていただきますようお願いします。
         </p>
         <h3>共有アカウントで制限される機能</h3>
         <ul>
@@ -280,6 +280,7 @@ export default {
         });
     },
     passPhraseSignIn() {
+      this.message.text = "";
       firebase
         .auth()
         .setPersistence(firebase.auth.Auth.Persistence.SESSION)
@@ -310,7 +311,7 @@ export default {
                 event_label: "reject_public",
               });
               this.message = {
-                text: "パスフレーズが違います。",
+                text: "パスフレーズが違います。<br>" + String(error),
                 type: "danger",
               };
             });
